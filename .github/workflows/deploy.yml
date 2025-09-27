@@ -25,7 +25,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
-        run: pnpm install --no-lockfile
+        run: pnpm install
 
       - name: Set VITE_BASE from repo name
         run: |
