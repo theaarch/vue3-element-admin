@@ -1,0 +1,21 @@
+import { c as computed, W as debugWarn, cb as fromPairs, C as getCurrentInstance } from "./index.Bx50VaHZ.js";
+const DEFAULT_EXCLUDE_KEYS = ["class", "style"];
+const LISTENER_PREFIX = /^on[A-Z]/;
+const useAttrs = (params = {}) => {
+  const { excludeListeners = false, excludeKeys } = params;
+  const allExcludeKeys = computed(() => {
+    return ((excludeKeys == null ? void 0 : excludeKeys.value) || []).concat(DEFAULT_EXCLUDE_KEYS);
+  });
+  const instance = getCurrentInstance();
+  if (!instance) {
+    debugWarn("use-attrs", "getCurrentInstance() returned null. useAttrs() must be called at the top of a setup function");
+    return computed(() => ({}));
+  }
+  return computed(() => {
+    var _a;
+    return fromPairs(Object.entries((_a = instance.proxy) == null ? void 0 : _a.$attrs).filter(([key]) => !allExcludeKeys.value.includes(key) && !(excludeListeners && LISTENER_PREFIX.test(key))));
+  });
+};
+export {
+  useAttrs as u
+};
